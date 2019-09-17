@@ -24,7 +24,7 @@
 - 看编辑器 vscode、webstorm 的颜色提示。
 - 使用浏览器的开发者工具。
 
-**Border 调试法：**border:1px solid red;
+**Border调试法**：border:1px solid red;
 
 ## 二、如何学习 CSS
 
