@@ -36,3 +36,56 @@ curl -s -v https://xiedaimala.com (显示更复杂的内容)
 3. 请求内容
 4. 响应内容
 5. 相应结束，关闭 TCP 链接（看不出来）。
+
+## HTTP 请求与响应
+
+### 请求与响应的模型
+
+1. 如何发请求
+   - 用 chrome 浏览器在地址栏输入地址
+   - 用 curl -v 域名
+     帮你发请求的工具叫做[用户代理]，user agent
+2. 如何做出一个响应
+
+3. 后缀没什么乱用，只有 content-type 才是决定文件类型的关键。
+
+### 系统学习 HTTP
+
+1. 请求与响应的格式
+2. 用代码来实现请求
+   curl -v http://localhost:8888/
+   不用 GET，用 POST
+   curl -v -x POST http://localhost:8888/
+   不访问'/'，换其他路径并加查询参数
+   curl -v http://localhost:8888/xxx?wd=hi /_(这里是 word='hi')_/
+3. 锚点不会显示在访问里的。
+4. 设置请求头
+   curl -v -H 'Frank:Good' http://localhost:8888/
+   ```
+   请求头内容会显示：
+   Accept:*/*
+   Frank:Good
+   ```
+5. 设置请求体
+   curl -v -X POST H 'Content-Type: text/plain;charset-utf-8' -d '请求体内容' http://localhost:8888/
+   ```
+   请求体内容虽然不显示，但是会提示上传了多少字节内容。
+   >Content-Typer:text/plain;charset:utf-8
+   >Content-Length:10
+   >
+   * upload completely sent off: 10 out of 10 bytes
+   ```
+
+### 如何用 node.js 获取请求内容
+
+1. 获取请求动词 request.method
+2. 读取路径 request.url 路径，带查询参数。 request.path 纯路径 request.query 只有查询参数
+3. 读取请求头 request.headers['Accept'] 或者读取全部请求头 request.getheaders
+4. 更改响应状态码 responds.statusCode = 308(写你要改的任意数字)
+5. 设置响应头 responds.setHeaders("Content-Type","text/html;charset=utf-8") 或者是 responds.setHeaders("Frank","Good")
+6. 设置响应体 seponds.write('内容') 并且 write 是可以追加的。
+
+curl 可以完成基本上所有浏览器的功能，他就相当于在地址栏输入。它也可以后面接一个图片地址，就直接下载了。
+`curl jpg地址 > 1.jpg`就会下载好。
+
+7. 状态码如果是 404，也是可以有内容的。你追加响应体内容就好。chrome 反馈的 404 页面是它自己做好的。
