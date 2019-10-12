@@ -216,8 +216,6 @@ console.log(2);
 也是一个label标签，并非对象。若要声明对象。
 ```
 
-var a ={foo:1}
-
 ```
-
+var a = { foo : 1 } ;
 ```
