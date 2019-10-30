@@ -43,3 +43,59 @@ var obj = {}
 obj[a] = 111
 \\新的语法相当于把老的两行写到一行里。
 ```
+
+### 1.3 关于对象的原型
+
+1. 任何对象都包含一个原型`\_\_proto__`
+2. 原型 Object 也有一个原型，它的原型的 null。
+
+## 二、对象的增删改查
+
+### 2.1 增
+
+直接赋值
+
+1. let obj = {name:'frank'}
+2. obj.name = 'frank'
+3. obj['name'] = 'frank'
+
+批量赋值
+Object.assign(obj,{p1:1,p2:2,p3:3}) //ES6 新出的 API
+
+### 2.2 删
+
+delate.obj.name 槽都删掉了
+obj.name = undefined 把键'name'的值改为 undefined，槽还在。
+用 in 操作符来查看是否 name 在 object 里。（它不会区分是自身的还是原型的）
+`name in obj === ture`
+
+### 2.3 改
+
+等同于增加操作
+
+### 2.4 查
+
+查看自身所有属性 `Object.keys(obj)`
+查看自身所有值 `Object.values(obj)`
+查看自身所有键值对 `Object.entries(obj)`
+查看自身+共有属性`Object.dir(obj)`
+判断一个属性是自身的还是共有的`Object.hasOwnProperty('toString')`如果返回 ture，那么 obj 有自己的`toString`属性，如果返回 false，那么它自身没有`toString`属性。
+
+### 2.5 修改原型
+
+#### 2.5.1 修改原型属性
+
+obj.toString= 'xxx' 只会修改 obj 自身的属性，写的时候不会修改或增加原型，只有读的时候可以读到原型。用 console.dir()就可以证明了。一般来说永远不要修改原型。
+
+若要修改原型属性，不要直接修改 obj.**proto**,修改 window.Object.prototype。这两个是同一个地址。
+
+#### 2.5.2 修改原型
+
+使用 Object.creat(原型对象)来改变一个对象的原型。
+例：
+
+```
+let obj = Object.create(common) //只能先加原型对象，对obj的对象增加要再后面再写
+obj.name = 'frank'
+obj.age = 18
+```
